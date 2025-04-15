@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Mobile-friendly -->
+  <title>MP Board Result Checker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      margin: 0;
+      background-color: #f4f6f8;
+    }
+
+    h2 {
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    form, .result, #output {
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      border: 1px solid #7228a7;
+      background-color: #e6e7ff;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+
+      form, .result {
+        padding: 15px;
+      }
+
+      input, button {
+        font-size: 15px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Class 12 MPBSE Result</h2>
+
+  <form id="resultForm">
+    <label for="roll">Enter Roll Number:</label>
+    <input type="text" id="roll" name="mpboard_result" placeholder="e.g. 253141982" pattern="[0-9]{9}" required>
+    <button type="submit">Check Result</button>
+  </form>
+
+  <div id="output"></div>
+
+  <script>
+    // Simulated database of results
+    const resultData = {
+      "253141982": {
+        name: "Shiv Mahima Tripathi",
+        Father: "Puspendra Tripathi",
+        roll: "253141982",
+        marks: "445/500",
+        grade: "A",
+        percentage: "85.3",
+        status: "Pass"
+      },
+      "87654321": {
+        name: "Priya Mehta",
+        Father: "Rakesh Mehta",
+        roll: "87654321",
+        marks: "380/500",
+        grade: "B",
+        percentage: "76.0",
+        status: "Pass"
+      }
+    };
+
+    document.getElementById("resultForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const roll = document.getElementById("roll").value.trim();
+      const output = document.getElementById("output");
+
+      if (resultData[roll]) {
+        const res = resultData[roll];
+        output.innerHTML = `
+          <div class="result">
+            <h3>Result for Roll No: ${res.roll}</h3>
+            <p><strong>Name:</strong> ${res.name}</p>
+            <p><strong>Father's Name:</strong> ${res.Father}</p>
+            <p><strong>Marks:</strong> ${res.marks}</p>
+            <p><strong>Grade:</strong> ${res.grade}</p>
+            <p><strong>Percentage:</strong> ${res.percentage}%</p>
+            <p><strong>Status:</strong> ${res.status}</p>
+          </div>
+        `;
+      } else {
+        output.innerHTML = `<p class="error">❌ No result found for Roll Number: ${roll}</p>`;
+      }
+    });
+  </script>
+
+</body>
+</html>
